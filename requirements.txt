@@ -1,0 +1,9 @@
+sqlalchemy
+flask
+flask_restful
+flask_cors
+datetime
+timedelta
+pyodbc
+jwt
+flask_mysqldb
