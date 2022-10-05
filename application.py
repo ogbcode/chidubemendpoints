@@ -23,21 +23,14 @@ def hash(data):
         finalhash=hash_var.hexdigest()
         return finalhash
 
-
-SERVER='DESKTOP-IEVPBEO'
-DATABASE='employeedb'
-DRIVER='SQL Server Native Client 11.0'
-USERNAME='chidubem'
-PASSWORD='ogbuefi'
-DRIVER_NAME='SQL SERVER'
-cursorconnection_string=f"""
-DRIVER={{{DRIVER_NAME}}};
-SERVER={SERVER};
-DATABASE={DATABASE};
-Trust_Connection=yes;
-"""
-connect = pyodbc.connect(cursorconnection_string)
-connection_string=f'mssql://{USERNAME}:{PASSWORD}@{SERVER}/{DATABASE}?driver={DRIVER}'
+server = 'wemotedb.database.windows.net'
+database = 'employeedb'
+username = 'chidubem'
+password = 'Ogbuefi@1'   
+driver= 'ODBC Driver 18 for SQL Server'
+connect=pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) 
+cursor = connect.cursor()
+connection_string=f'mssql://{username}:{password}@{server}/{database}?driver={driver}'
 # connection_string=f'mssql://{str(os.getenv("USERNAME"))}:{str(os.getenv("PASSWORD"))}@{str(os.getenv("SERVER"))}/{str(os.getenv("DATABASE"))}?driver={str(os.getenv("DRIVER"))}'
 def emailauthent(email):
         engine = create_engine(connection_string)
