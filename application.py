@@ -139,6 +139,7 @@ class scheduledays(Resource):
                 self.Wednesday=data['Wednesday']
                 self.Thursday=data['Thursday']
                 self.Friday=data['Friday']
+                body=data['Body']
                 days=[self.Monday,self.Tuesday,self.Wednesday,self.Thursday,self.Friday]
                 for i in days:
                     if(i==1):
@@ -152,25 +153,20 @@ class scheduledays(Resource):
                 elif(x>2):
                     return("Error you chose more than the required amount of days required to work remotely please select only two days ")
                 else:
-                    try:
-                        cursor.execute(os.getenv("monday"),(self.Monday,self.email))
-                        cursor.execute(os.getenv("tuesday"),(self.Tuesday,self.email))
-                        cursor.execute(os.getenv("wednesday"),(self.Wednesday,self.email))
-                        cursor.execute(os.getenv("thursday"),(self.Thursday,self.email))
-                        cursor.execute(os.getenv("friday"),(self.Friday,self.email))
-                        connect.commit()
-                        return{"message":"token is valid and scheduleddays assinged succefully",'Monday':bool(self.Monday),'Tuesday':bool(self.Tuesday),'Wednesday':bool(self.Wednesday),'Thursday':bool(self.Thursday),'Friday':bool(self.Friday)}
-                    except:
-                        return{"message":("could not update scheduled days")}
-
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-            return{"message":"token verification failed"}
-
-        elif(tokenfunc['message']=="email does not exist"):
-            return{"message":"email does not exist"}
+                    # try:
+                    cursor.execute(os.getenv("monday"),(self.Monday,self.email))
+                    cursor.execute(os.getenv("tuesday"),(self.Tuesday,self.email))
+                    cursor.execute(os.getenv("wednesday"),(self.Wednesday,self.email))
+                    cursor.execute(os.getenv("thursday"),(self.Thursday,self.email))
+                    cursor.execute(os.getenv("friday"),(self.Friday,self.email))
+                    cursor.execute(os.getenv("body"),(str(body),self.email))
+                    cursor.execute(os.getenv("datesent"),(str(datetime.utcnow()),self.email))
+                    connect.commit()
+                    return{"message":"token is valid and scheduleddays assinged succefully",'Monday':bool(self.Monday),'Tuesday':bool(self.Tuesday),'Wednesday':bool(self.Wednesday),'Thursday':bool(self.Thursday),'Friday':bool(self.Friday)}
+                    # except:
+                    #     return{"message":("could not update scheduled days")}
+        else :
+            return{"message":tokenfunc['message']}
       
     def patch(self):
         data=request.get_json()
@@ -204,19 +200,14 @@ class scheduledays(Resource):
                         cursor.execute(os.getenv("wednesday"),(self.Wednesday,self.email))
                         cursor.execute(os.getenv("thursday"),(self.Thursday,self.email))
                         cursor.execute(os.getenv("friday"),(self.Friday,self.email))
+                        cursor.execute(os.getenv("datesent"),(str(datetime.utcnow()),self.email))
                         connect.commit()
                         return{"message":"token is valid and scheduleddays assinged succefully",'Monday':bool(self.Monday),'Tuesday':bool(self.Tuesday),'Wednesday':bool(self.Wednesday),'Thursday':bool(self.Thursday),'Friday':bool(self.Friday)}
                     except:
                         return{"message":("could not update scheduled days")}
 
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-            return{"message":"token verification failed"}
-
-        elif(tokenfunc['message']=="email does not exist"):
-            return{"message":"email does not exist"}
+        else :
+            return{"message":tokenfunc['message']}
       
 api.add_resource(scheduledays,"/scheduleddays")
 class logout(Resource):
@@ -257,14 +248,8 @@ class roles(Resource):
             for row in x:
                 roles.append({"role" :row[0],"Description":row[1]})
             return jsonify(roles)
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-            return{"message":"token verification failed"}
-
-        else:
-            return{"message":"token not inlcuded"}
+        else :
+            return{"message":tokenfunc['message']}
 
     def post(self):
         data=request.get_json()
@@ -277,15 +262,8 @@ class roles(Resource):
                 return{"message":"role added succesfully"}
             except:
                 return {"message":"failed to add role"}
-
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-            return{"message":"token verification failed"}
-
-        else:
-            return{"message":"token not inlcuded"}
+        else :
+            return{"message":tokenfunc['message']}
 
 api.add_resource(roles,"/roles")
 class designtion(Resource):
@@ -300,14 +278,8 @@ class designtion(Resource):
             for row in x:
                 roles.append({"Description":row[1],"Designation":row[0]})
             return jsonify(roles)
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-                return{"message":"token verification failed"}
-
-        else:
-            return{"message":"token not inlcuded"}
+        else :
+            return{"message":tokenfunc['message']}
     def post(self):
         data=request.get_json()
         self.email=data['email']
@@ -319,14 +291,8 @@ class designtion(Resource):
                 return{"message":"desingtion added succesfully"}
             except:
                 return {"message":"failed to add destination"}
-        elif (tokenfunc['message']=="token expired"):
-            return{"message":"token expired"}
-
-        elif(tokenfunc['message']=="token verification failed"):
-                return{"message":"token verification failed"}
-
-        else:
-            return{"message":"token not inlcuded"}
+        else :
+            return{"message":tokenfunc['message']}
 api.add_resource(designtion,"/designation")
 if __name__ =="__main__":
     app.run(debug=True)

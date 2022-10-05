@@ -8,3 +8,4 @@ timedelta
 pyodbc
 jwt
 flask_mysqldb
+python-dotenv
