@@ -7,7 +7,7 @@ Created on Fri Aug  5 11:17:29 2022
 from datetime import datetime,timedelta
 from urllib import request
 from sqlalchemy import create_engine
-import pypyodbc as odbc
+import pyodbc
 import pandas as pd
 from flask import Flask,jsonify,request
 from flask_restful import Api,Resource
@@ -36,7 +36,7 @@ SERVER={SERVER};
 DATABASE={DATABASE};
 Trust_Connection=yes;
 """
-connect = odbc.connect(cursorconnection_string)
+connect = pyodbc.connect(cursorconnection_string)
 connection_string=f'mssql://{USERNAME}:{PASSWORD}@{SERVER}/{DATABASE}?driver={DRIVER}'
 # connection_string=f'mssql://{str(os.getenv("USERNAME"))}:{str(os.getenv("PASSWORD"))}@{str(os.getenv("SERVER"))}/{str(os.getenv("DATABASE"))}?driver={str(os.getenv("DRIVER"))}'
 def emailauthent(email):
