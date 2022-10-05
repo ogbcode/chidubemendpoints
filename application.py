@@ -28,7 +28,7 @@ database = 'employeedb'
 username = 'chidubem'
 password = 'Ogbuefi@1'   
 driver= 'ODBC Driver 18 for SQL Server'
-connect=pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) 
+connect=pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';DATABASE='+database+';UID='+username+';PWD='+ password) 
 cursor = connect.cursor()
 connection_string=f'mssql://{username}:{password}@{server}/{database}?driver={driver}'
 # connection_string=f'mssql://{str(os.getenv("USERNAME"))}:{str(os.getenv("PASSWORD"))}@{str(os.getenv("SERVER"))}/{str(os.getenv("DATABASE"))}?driver={str(os.getenv("DRIVER"))}'
