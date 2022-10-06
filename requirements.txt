@@ -1,0 +1,11 @@
+sqlalchemy
+flask
+flask_restful
+flask_cors
+datetime
+pandas
+timedelta
+pyodbc
+jwt
+flask_mysqldb
+python-dotenv
