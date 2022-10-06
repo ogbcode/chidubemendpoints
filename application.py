@@ -17,6 +17,8 @@ import os
 from flask_cors import CORS
 from dotenv import load_dotenv
 load_dotenv()
+email1="chidubemogbuefi@gmail.com"
+password1="chidubem"
 #function to hash password
 def hash(data):
         hash_var=sha256((data).encode())
@@ -125,6 +127,16 @@ class login(Resource):
             return {"message":"user does not exist"}
         return  jwt.decode(encodedtoken, key=str(os.getenv("key")), algorithms=['HS256', ])
 api.add_resource(login,'/login')
+class demologin(Resource):
+    def post(self):
+        data=request.get_json
+        email=data['email']
+        password=data['password']
+        if (email==email1 and password==password1):
+            return{"message":"login approved"}
+        else:
+            return{"message":"login denied"}
+api.add_resource(demologin,"/demologin")
 class scheduledays(Resource):
     def post(self):
         data=request.get_json()
