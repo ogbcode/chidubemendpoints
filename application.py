@@ -238,7 +238,7 @@ api.add_resource(logout,'/logout')
 
 class roles(Resource):
     def get(self):
-        data=request.args()
+        data=request.get_json()
         self.email=data['email']
         tokenfunc=tokenauthent(self.email,str(os.getenv("key")))
         if (tokenfunc['message']=="token is valid"):
