@@ -240,10 +240,10 @@ class roles(Resource):
     def get(self):
         data=request.get_json()
         self.email=data['email']
-        tokenfunc=tokenauthent(self.email,str(os.getenv("key")))
+        tokenfunc=tokenauthent(self.email,"f9bb43fda47e9f127dee774b5f424a1b24b354bace8566e236770c70c3eabfed")
         if (tokenfunc['message']=="token is valid"):
             # to return available roles
-            x=cursor.execute(os.getenv("rolesselect"))
+            x=cursor.execute("Select [roles] , [Description_] FROM [employeedb].[dbo].[Roles] ")
             roles=[]
             for row in x:
                 roles.append({"role" :row[0],"Description":row[1]})
