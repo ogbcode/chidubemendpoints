@@ -129,7 +129,7 @@ class login(Resource):
 api.add_resource(login,'/login')
 class demologin(Resource):
     def post(self):
-        data=request.get_json
+        data=request.get_json()
         email=data['email']
         password=data['password']
         if (email==email1 and password==password1):
