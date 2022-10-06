@@ -70,7 +70,7 @@ app=Flask(__name__)
 api=Api(app)
 @app.route('/')
 def helloworld():
-    return{"message":"helloworld"}
+    return{"message":os.getenv("ogbtest1")}
 class login(Resource):
     def post(self):
         email_pass=request.get_json()
