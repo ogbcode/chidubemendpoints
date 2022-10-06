@@ -27,7 +27,7 @@ server = 'wemotedb.database.windows.net,1433'
 database = 'employeedb'
 username = 'chidubem'
 password = 'Ogbuefi@1'   
-driver= 'ODBC Driver 17 for SQL Server'
+driver= 'ODBC Driver 18 for SQL Server'
 connect=pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password+';Encrypt=yes'+';TrustServerCertificate=no'+';Connection Timeout=0') 
 cursor = connect.cursor()
 connection_string=f'mssql://{username}:{password}@{server}/{database}?driver={driver}'
