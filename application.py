@@ -6,6 +6,7 @@ Created on Fri Aug  5 11:17:29 2022
 """
 from datetime import datetime,timedelta
 from urllib import request
+import urllib
 from sqlalchemy import create_engine
 import pyodbc
 import pandas as pd
@@ -30,13 +31,17 @@ database = 'employeedb'
 username = 'chidubem'
 password = 'Ogbuefi@1'   
 driver= 'ODBC Driver 18 for SQL Server'
+# pyodbbc connection
 connect=pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password+';Encrypt=yes'+';TrustServerCertificate=no'+';Connection Timeout=0') 
 cursor = connect.cursor()
-connection_string=f'mssql://{username}:{password}@{server}/{database}?driver={driver}'
-# connection_string=f'mssql://{str(os.getenv("USERNAME"))}:{str(os.getenv("PASSWORD"))}@{str(os.getenv("SERVER"))}/{str(os.getenv("DATABASE"))}?driver={str(os.getenv("DRIVER"))}'
+
+# sqlalchemy connection
+conn='DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password+';Encrypt=yes'+';TrustServerCertificate=no'+';Connection Timeout=0'
+params = urllib.parse.quote_plus(conn)
+conn_str = 'mssql+pyodbc:///?autocommit=true&odbc_connect={}'.format(params)
+engine = create_engine(conn_str, echo=True)
+connection=engine.connect()
 def emailauthent(email):
-        engine = create_engine(connection_string)
-        connection=engine.connect()
         sqltable=pd.read_sql_query(str(os.getenv("selectall")),connection)
         finaltable1=pd.DataFrame(sqltable)
         emailauthentication=(email in finaltable1['email'].unique())
@@ -79,10 +84,7 @@ class login(Resource):
         cursor = connect.cursor()
         self.email=email_pass['email']
         password=hash(email_pass['Password'])
-        self.connection_string=connection_string
-        self.engine = create_engine(self.connection_string)
-        self.connection=self.engine.connect()
-        sqltable=pd.read_sql_query(str(os.getenv("selectall")),self.connection)
+        sqltable=pd.read_sql_query(str(os.getenv("selectall")),connection)
         finaltable1=pd.DataFrame(sqltable)
         emailauthentication=(self.email in finaltable1['email'].unique())
         if (emailauthentication==True):
