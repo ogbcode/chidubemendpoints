@@ -80,8 +80,8 @@ cursor = connect.cursor()
 
 
 app=Flask(__name__)
-CORS(app)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources=r'/api/*')
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api=Api(app)
 @app.route('/')
 def helloworld():
