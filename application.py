@@ -154,7 +154,7 @@ class demologin(Resource):
             "token": encodedtoken}
         else:
             return{"message":"login denied"}
-api.add_resource(demologin,"/demologin")
+api.add_resource(demologin,"/api/demologin")
 class scheduledays(Resource):
     def post(self):
         data=request.get_json()
