@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 """
 Created on Fri Aug  5 11:17:29 2022
 
@@ -80,7 +80,7 @@ cursor = connect.cursor()
 
 
 app=Flask(__name__)
-CORS(app, resources=r'/api/*')
+CORS(app)
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api=Api(app)
 @app.route('/')
