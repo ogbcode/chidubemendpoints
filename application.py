@@ -133,7 +133,15 @@ class demologin(Resource):
         email=data['email']
         password=data['password']
         if (email==email1 and password==password1):
-            return{"message":"login approved"}
+            encodedtoken = jwt.encode({
+                "firstname": "chidubem",
+                "lastname":"ogbuefi",
+                'expiration': str(datetime.utcnow() + timedelta(seconds=999))
+                },"chidubemogbuefi")
+            return{"message":"login approved",
+            "firstname":"chidubem",
+            "lastname":"ogbuefi",
+            "token": encodedtoken}
         else:
             return{"message":"login denied"}
 api.add_resource(demologin,"/demologin")
