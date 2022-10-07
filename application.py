@@ -195,9 +195,9 @@ class scheduledays(Resource):
         self.email=data['email']
         tokenfunc=tokenauthent(self.email,str(os.getenv("key")))
         if (tokenfunc['message']=="token is valid"):
+                x=0
                 data=request.get_json()
                 self.email=data['email']
-                x=0
                 self.Monday=data['Monday']
                 self.Tuesday=data['Tuesday']
                 self.Wednesday=data['Wednesday']
