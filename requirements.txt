@@ -6,6 +6,6 @@ datetime
 pandas
 timedelta
 pyodbc
-jwt
+pyjwt
 flask_mysqldb
 python-dotenv
