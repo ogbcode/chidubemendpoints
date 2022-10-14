@@ -117,12 +117,18 @@ class login(Resource):
                     pass
                 unitid=unid[0]
                 sqlunit=cursor.execute(str(os.getenv("unitname")),unitid)
+                
                 for unidd in sqlunit:
                     pass
                 unit=unidd[0]
                 key=str(os.getenv("key"))
+                sqlfullname=cursor.execute(os.getenv("fullname"),self.email)
+                for fn in sqlfullname:
+                    pass
+                fullname=fn[0]
                 encodedtoken = jwt.encode({
                     'email': self.email,
+                    'full name':fullname,
                     "unit":unit,
                     "role":role,
                     "message":"you are connected",
