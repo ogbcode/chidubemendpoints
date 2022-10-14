@@ -280,10 +280,10 @@ class roles(Resource):
         tokenfunc=tokenauthent(self.email,"f9bb43fda47e9f127dee774b5f424a1b24b354bace8566e236770c70c3eabfed")
         if (tokenfunc['message']=="token is valid"):
             # to return available roles
-            x=cursor.execute("Select [roles] , [Description_] FROM [employeedb].[dbo].[Roles] ")
+            x=cursor.execute("Select [roles] , [Description_], RolesID FROM [employeedb].[dbo].[Roles] ")
             roles=[]
             for row in x:
-                roles.append({"role" :row[0],"Description":row[1]})
+                roles.append({"role" :row[0],"Description":row[1],"RoleID":row[2]})
             return jsonify(roles)
         else :
             return{"message":tokenfunc['message']}
@@ -313,10 +313,10 @@ class designtion(Resource):
         tokenfunc=tokenauthent(self.email,str(os.getenv("key")))
         if (tokenfunc['message']=="token is valid"):
             # to return available roles
-            x=cursor.execute(os.getenv("designationcreate"))
+            x=cursor.execute("Select [Designation],[Description_], DesignationID FROM [employeedb].[dbo].[Designation]")
             roles=[]
             for row in x:
-                roles.append({"Description":row[1],"Designation":row[0]})
+                roles.append({"Description":row[0],"Designation":row[1],"DesignationID":row[2]})
             return jsonify(roles)
         else :
             return{"message":tokenfunc['message']}
