@@ -15,7 +15,7 @@ from flask_restful import Api,Resource
 from hashlib import sha256
 import jwt
 import os
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 import re
 load_dotenv()
@@ -80,10 +80,11 @@ cursor = connect.cursor()
 
 
 app=Flask(__name__)
-CORS(app)
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api=Api(app)
-@app.route('/')
+CORS(app)
+@app.route('/api/ogb',methods=['GET'])
+@cross_origin
 def helloworld():
     return{"message":"Backend server is running"}
 class login(Resource):
